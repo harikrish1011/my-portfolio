@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hari Prasath G K — Mechatronics Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1B2D;
+    --panel:#152640;
+    --panel-2:#1B3050;
+    --line:#2C4667;
+    --line-soft:#213a58;
+    --text:#E7EEF5;
+    --muted:#8CA3B8;
+    --accent:#E8963C;
+    --accent-soft:#5a3f22;
+    --circuit:#6FCF97;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:
+      radial-gradient(circle at 1px 1px, var(--line-soft) 1px, transparent 1px) 0 0/28px 28px,
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .mono{font-family:'IBM Plex Mono', monospace;}
+  .wrap{max-width:1040px; margin:0 auto; padding:0 32px;}
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(15,27,45,0.88);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1040px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .brand{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:14px; letter-spacing:0.08em;
+    display:flex; align-items:center; gap:8px;
+  }
+  .brand-dot{width:7px; height:7px; border-radius:50%; background:var(--circuit); box-shadow:0 0 6px var(--circuit);}
+  nav.links{display:flex; gap:28px; font-family:'IBM Plex Mono', monospace; font-size:12.5px; letter-spacing:0.06em;}
+  nav.links a{color:var(--muted); text-decoration:none; text-transform:uppercase; transition:color .15s;}
+  nav.links a:hover, nav.links a:focus-visible{color:var(--accent); outline:none;}
+
+  /* ---------- SCHEMATIC SPINE ---------- */
+  .spine{
+    position:fixed; left:0; top:0; bottom:0; width:64px;
+    display:none;
+    pointer-events:none;
+    z-index:1;
+  }
+  @media(min-width:1180px){ .spine{display:block;} }
+  .spine svg{height:100%; width:100%;}
+  .spine path{
+    fill:none; stroke:var(--line); stroke-width:1.5;
+    stroke-dasharray:6 2000;
+    animation:draw 2.6s ease-out forwards;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @media (prefers-reduced-motion: reduce){
+    .spine path{animation:none; stroke-dasharray:none;}
+  }
+  .spine circle{fill:var(--bg); stroke:var(--circuit); stroke-width:1.5;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding:96px 0 72px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono', monospace; font-size:12.5px; color:var(--accent);
+    letter-spacing:0.14em; text-transform:uppercase; margin-bottom:22px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:22px; height:1px; background:var(--accent); display:inline-block;}
+  .hero-grid{display:grid; grid-template-columns:1fr 220px; gap:48px; align-items:start;}
+  @media(max-width:760px){ .hero-grid{grid-template-columns:1fr;} }
+  h1{
+    font-family:'Space Grotesk', sans-serif; font-weight:700;
+    font-size:clamp(38px, 6vw, 60px); line-height:1.04; letter-spacing:-0.01em;
+    margin-bottom:20px;
+  }
+  h1 span{color:var(--accent);}
+  .role{
+    font-family:'IBM Plex Mono', monospace; font-size:15px; color:var(--circuit);
+    margin-bottom:20px; letter-spacing:0.02em;
+  }
+  .lede{max-width:520px; color:var(--muted); font-size:16.5px; margin-bottom:32px;}
+  .cta-row{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono', monospace; font-size:13px; letter-spacing:0.04em;
+    padding:12px 20px; border-radius:var(--radius); text-decoration:none;
+    display:inline-flex; align-items:center; gap:8px; transition:transform .15s, background .15s;
+  }
+  .btn-primary{background:var(--accent); color:#1a1207; font-weight:600;}
+  .btn-primary:hover{transform:translateY(-1px); background:#f2a350;}
+  .btn-ghost{border:1px solid var(--line); color:var(--text);}
+  .btn-ghost:hover{border-color:var(--accent); color:var(--accent);}
+
+  .id-badge{
+    border:1px solid var(--line); background:var(--panel);
+    padding:18px; border-radius:var(--radius); font-family:'IBM Plex Mono', monospace;
+  }
+  .id-badge .hex{
+    width:100%; aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+    background:var(--panel-2); border:1px solid var(--line); margin-bottom:14px;
+    clip-path:polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  }
+  .id-badge .hex span{font-family:'Space Grotesk', sans-serif; font-weight:700; font-size:22px; color:var(--accent);}
+  .id-badge .row{display:flex; justify-content:space-between; font-size:11.5px; color:var(--muted); margin-top:6px;}
+  .id-badge .row b{color:var(--text); font-weight:500;}
+  .status{display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--circuit); margin-top:12px;}
+  .status i{width:6px; height:6px; border-radius:50%; background:var(--circuit); box-shadow:0 0 5px var(--circuit); display:inline-block;}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:64px 0; border-bottom:1px solid var(--line);}
+  .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:32px;}
+  .sec-num{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent);}
+  h2{font-family:'Space Grotesk', sans-serif; font-size:24px; font-weight:600; letter-spacing:-0.01em;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1.4fr 1fr; gap:48px;}
+  @media(max-width:760px){ .about-grid{grid-template-columns:1fr;} }
+  .about-grid p{color:var(--muted); margin-bottom:14px; font-size:15.5px;}
+  .about-grid p b{color:var(--text); font-weight:600;}
+  .facts{border:1px solid var(--line); background:var(--panel); border-radius:var(--radius);}
+  .facts dl{display:grid; grid-template-columns:auto 1fr; gap:12px 16px; padding:20px;}
+  .facts dt{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.06em; align-self:start;}
+  .facts dd{font-size:14px;}
+
+  /* ---------- EDUCATION ---------- */
+  .timeline{position:relative; padding-left:28px;}
+  .timeline::before{content:''; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);}
+  .t-item{position:relative; padding-bottom:30px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-item::before{content:''; position:absolute; left:-28px; top:4px; width:10px; height:10px; border-radius:50%; background:var(--bg); border:2px solid var(--circuit);}
+  .t-item h3{font-family:'Space Grotesk', sans-serif; font-size:17px; font-weight:600; margin-bottom:4px;}
+  .t-item .t-meta{font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--accent); margin-bottom:6px;}
+  .t-item p{color:var(--muted); font-size:14.5px;}
+
+  /* ---------- SKILLS / PANEL ---------- */
+  .panel-groups{display:grid; grid-template-columns:repeat(2, 1fr); gap:28px;}
+  @media(max-width:600px){ .panel-groups{grid-template-columns:1fr;} }
+  .panel-group{border:1px solid var(--line); background:var(--panel); border-radius:var(--radius); padding:20px 22px;}
+  .panel-group h4{font-family:'IBM Plex Mono', monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:14px;}
+  .switch-row{display:flex; align-items:center; justify-content:space-between; padding:9px 0; border-top:1px solid var(--line-soft); font-size:14px;}
+  .switch-row:first-of-type{border-top:none;}
+  .switch{width:30px; height:16px; border-radius:9px; background:var(--panel-2); border:1px solid var(--line); position:relative; flex:none;}
+  .switch::after{content:''; position:absolute; width:10px; height:10px; border-radius:50%; background:var(--circuit); top:2px; right:2px; box-shadow:0 0 5px var(--circuit);}
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{display:grid; grid-template-columns:repeat(2, 1fr); gap:22px;}
+  @media(max-width:760px){ .proj-grid{grid-template-columns:1fr;} }
+  .card{
+    position:relative; border:1px solid var(--line); background:var(--panel);
+    padding:24px; border-radius:var(--radius);
+  }
+  .card::before, .card::after{
+    content:''; position:absolute; width:10px; height:10px; border-color:var(--accent); border-style:solid; opacity:.7;
+  }
+  .card::before{top:-1px; left:-1px; border-width:1.5px 0 0 1.5px;}
+  .card::after{bottom:-1px; right:-1px; border-width:0 1.5px 1.5px 0;}
+  .card .tag{font-family:'IBM Plex Mono', monospace; font-size:11px; color:var(--accent); letter-spacing:0.06em; margin-bottom:10px; display:block;}
+  .card h3{font-family:'Space Grotesk', sans-serif; font-size:18px; font-weight:600; margin-bottom:8px;}
+  .card .venue{font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--circuit); margin-bottom:12px;}
+  .card p{color:var(--muted); font-size:14.5px; margin-bottom:14px;}
+  .chips{display:flex; flex-wrap:wrap; gap:6px;}
+  .chip{font-family:'IBM Plex Mono', monospace; font-size:10.5px; padding:4px 8px; border:1px solid var(--line); color:var(--muted); border-radius:20px;}
+  .card.wide{grid-column:1 / -1;}
+
+  /* ---------- TWO COL: internship + achievements ---------- */
+  .split{display:grid; grid-template-columns:1fr 1fr; gap:22px;}
+  @media(max-width:700px){ .split{grid-template-columns:1fr;} }
+  .split .card h3{margin-bottom:14px;}
+  .ach-item{display:flex; gap:12px; padding:10px 0; border-top:1px solid var(--line-soft); font-size:14px; color:var(--muted);}
+  .ach-item:first-of-type{border-top:none;}
+  .ach-item b{color:var(--text); font-weight:500; font-family:'IBM Plex Mono', monospace; font-size:12px; flex:none;}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:56px 0 72px;}
+  .foot-grid{display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:36px; margin-bottom:40px;}
+  @media(max-width:700px){ .foot-grid{grid-template-columns:1fr;} }
+  footer h4{font-family:'IBM Plex Mono', monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:12px;}
+  footer .big{font-family:'Space Grotesk', sans-serif; font-size:26px; font-weight:600; margin-bottom:10px;}
+  footer .contact-line{font-family:'IBM Plex Mono', monospace; font-size:14px; color:var(--accent); display:block; margin-bottom:6px; text-decoration:none;}
+  footer .contact-line:hover{text-decoration:underline;}
+  footer .small-list{color:var(--muted); font-size:14px;}
+  .foot-bottom{border-top:1px solid var(--line); padding-top:20px; font-family:'IBM Plex Mono', monospace; font-size:11.5px; color:var(--muted); display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;}
+</style>
+</head>
+<body>
+
+<div class="spine" aria-hidden="true">
+  <svg viewBox="0 0 64 1400" preserveAspectRatio="none">
+    <path d="M32 0 V220 L20 240 V420 L44 440 V680 L20 700 V900 L44 920 V1160 L32 1180 V1400"/>
+    <circle cx="32" cy="220" r="4"/>
+    <circle cx="20" cy="420" r="4"/>
+    <circle cx="44" cy="680" r="4"/>
+    <circle cx="20" cy="900" r="4"/>
+    <circle cx="44" cy="1160" r="4"/>
+  </svg>
+</div>
+
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="brand-dot"></span>HP·GK</div>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="top">
+    <div class="eyebrow">Mechatronics · Final-year engineer</div>
+    <div class="hero-grid">
+      <div>
+        <h1>Hari Prasath <span>G K</span></h1>
+        <div class="role">Building physical systems that work — sensing, actuation, control.</div>
+        <p class="lede">A final-year Mechatronics student at Kongu Engineering College who learns by building: automated hatchers, farm robots, and spray systems that trade risky manual work for a motor, a relay, and a bit of code.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="mailto:hariprasathkrishnamoorthi10@gmail.com">Email me</a>
+          <a class="btn btn-ghost" href="tel:6369205484">Call — 6369205484</a>
+        </div>
+      </div>
+      <div class="id-badge">
+        <div class="hex"><span>HPGK</span></div>
+        <div class="row"><span>Discipline</span><b>Mechatronics</b></div>
+        <div class="row"><span>Year</span><b>Final year</b></div>
+        <div class="row"><span>Focus</span><b>IoT · PLC · CAD</b></div>
+        <div class="status"><i></i>Open to opportunities</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="sec-head"><span class="sec-num mono">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div>
+        <p>Hari focuses on <b>creating precise, well-functioning systems</b> — the kind where a poultry farmer or a grape grower stops touching the pesticide directly. Most of his projects follow the same instinct: find the step in a process that causes injury, mess, or repetition, then automate it with basic, reliable hardware.</p>
+        <p>He enjoys the collaborative side of engineering as much as the build itself, and is <b>eager to join a team</b> where that curiosity and attention to detail can be put to use on real problems.</p>
+      </div>
+      <div class="facts">
+        <dl>
+          <dt>Institution</dt><dd>Kongu Engineering College</dd>
+          <dt>Degree</dt><dd>B.E. Mechatronics Engineering</dd>
+          <dt>Languages</dt><dd>Tamil (LSR), English (LSRW)</dd>
+          <dt>Interests</dt><dd>Design · Industrial Automation (PLC)</dd>
+          <dt>Hobbies</dt><dd>Drawing, listening to music, driving</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="sec-head"><span class="sec-num mono">02</span><h2>Education</h2></div>
+    <div class="timeline">
+      <div class="t-item">
+        <h3>B.E. Mechatronics Engineering</h3>
+        <div class="t-meta">KONGU ENGINEERING COLLEGE · FINAL YEAR</div>
+        <p>Core coursework spanning mechanical systems, electronics, and control — the foundation behind every project below.</p>
+      </div>
+      <div class="t-item">
+        <h3>Higher Secondary Certificate</h3>
+        <div class="t-meta">ST. PAUL'S MATRICULATION H.S.S · 2022–2023 · 62.8%</div>
+        <p>Also completed SSLC at the same school, 2020–2021.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="sec-head"><span class="sec-num mono">03</span><h2>Skills panel</h2></div>
+    <div class="panel-groups">
+      <div class="panel-group">
+        <h4>Software</h4>
+        <div class="switch-row">AutoCAD<div class="switch"></div></div>
+        <div class="switch-row">SolidWorks<div class="switch"></div></div>
+      </div>
+      <div class="panel-group">
+        <h4>Programming</h4>
+        <div class="switch-row">C — fundamentals<div class="switch"></div></div>
+      </div>
+      <div class="panel-group">
+        <h4>Professional</h4>
+        <div class="switch-row">3D design — fundamentals<div class="switch"></div></div>
+        <div class="switch-row">IoT — fundamentals<div class="switch"></div></div>
+        <div class="switch-row">PLC — fundamentals<div class="switch"></div></div>
+      </div>
+      <div class="panel-group">
+        <h4>Working style</h4>
+        <div class="switch-row">Quick learner<div class="switch"></div></div>
+        <div class="switch-row">Adaptability<div class="switch"></div></div>
+        <div class="switch-row">Builds websites with AI tools<div class="switch"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="sec-head"><span class="sec-num mono">04</span><h2>Projects</h2></div>
+    <div class="proj-grid">
+
+      <div class="card">
+        <span class="tag mono">SYS-01 · AUTOMATION</span>
+        <h3>Automatic Egg Hatcher</h3>
+        <div class="venue mono">Proof of concept — presented at KEC</div>
+        <p>An incubation system that hatches eggs without a hen, coordinating a timer, an egg-roller, a heat bulb, and relays through an Arduino controller.</p>
+        <div class="chips"><span class="chip">Arduino</span><span class="chip">Relays</span><span class="chip">Timer control</span></div>
+      </div>
+
+      <div class="card">
+        <span class="tag mono">SYS-02 · ROBOTICS</span>
+        <h3>Litter Scarifier</h3>
+        <div class="venue mono">Presented at Bannari Amman College</div>
+        <p>A mobile-app-controlled bot that cleans poultry-farm litter with a mini scooper, keeping workers away from the injuries and skin allergies the job usually causes.</p>
+        <div class="chips"><span class="chip">Arduino</span><span class="chip">Motors</span><span class="chip">PVC scooper</span></div>
+      </div>
+
+      <div class="card">
+        <span class="tag mono">SYS-03 · MATERIALS</span>
+        <h3>Seaweed-to-Biopolymer Machine</h3>
+        <div class="venue mono">Independent project</div>
+        <p>Processes seaweed with vinegar, glycerin, and corn starch to produce a biopolymer — a working alternative to plastic, made from a machine built from scratch.</p>
+        <div class="chips"><span class="chip">Biopolymers</span><span class="chip">Process design</span></div>
+      </div>
+
+      <div class="card">
+        <span class="tag mono">SYS-04 · ROBOTICS</span>
+        <h3>Smart Agro Bot</h3>
+        <div class="venue mono">Independent project</div>
+        <p>Sprays pesticide on crops under app control with a live camera feed, so the operator can direct the spray without skin or eye exposure.</p>
+        <div class="chips"><span class="chip">App control</span><span class="chip">Camera feed</span><span class="chip">Spray system</span></div>
+      </div>
+
+      <div class="card wide">
+        <span class="tag mono">SYS-05 · MECHANICAL</span>
+        <h3>Gantry-Based Pesticide Sprayer</h3>
+        <div class="venue mono">Proof of concept — presented at KEC</div>
+        <p>A rack-and-pinion gantry sprayer geared with bevel gears, built for row crops like grapes — again keeping the operator clear of chemical exposure while spraying.</p>
+        <div class="chips"><span class="chip">Rack &amp; pinion</span><span class="chip">Bevel gears</span><span class="chip">Gantry mechanism</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section id="track-record">
+    <div class="sec-head"><span class="sec-num mono">05</span><h2>Track record</h2></div>
+    <div class="split">
+      <div class="card">
+        <h3>Internship</h3>
+        <div class="ach-item"><b>TVS BRAKES<br>INDIA PVT LTD</b><span>One-month internship.</span></div>
+      </div>
+      <div class="card">
+        <h3>Achievements</h3>
+        <div class="ach-item"><b>2ND PRIZE</b><span>Project presentation — Kings Engineering College</span></div>
+        <div class="ach-item"><b>2ND PRIZE</b><span>Paper presentation — Dhaanish Ahmed Institute of Technology</span></div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer id="contact">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>Get in touch</h4>
+        <div class="big">Let's build something.</div>
+        <a class="contact-line" href="mailto:hariprasathkrishnamoorthi10@gmail.com">hariprasathkrishnamoorthi10@gmail.com</a>
+        <a class="contact-line" href="tel:6369205484">6369205484</a>
+      </div>
+      <div>
+        <h4>Courses</h4>
+        <div class="small-list">IoT application development and device control</div>
+      </div>
+      <div>
+        <h4>Areas of interest</h4>
+        <div class="small-list">Design<br>Industrial Automation (PLC)</div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>HARI PRASATH G K — MECHATRONICS ENGINEER</span>
+      <span>REV. 2026</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
